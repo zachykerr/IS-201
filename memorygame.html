@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Card Game</title>
+    <style>
+    /* Basic CSS for game layout */
+    body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f4f4f4;
+        margin: 0;
+    }
+
+    header {
+        position: absolute; /* Position the header absolutely within the body */
+        top: 10px; /* 10px from the top */
+        right: 10px; /* 10px from the right */
+        padding: 10px;
+    }
+
+    header a {
+        color: #3498db;
+        font-size: 18px;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    h1 {
+        position: absolute;
+        top: 0px;
+        text-align: center;
+        padding-bottom: 20px;
+        font-family: cursive;
+        font-size: xxx-large;
+        color: #194b6c;
+    }
+
+    h2 {
+        position: absolute;
+        top: 90px;
+        text-align: center;
+        padding-bottom: 20px;
+        font-family: cursive;
+        font-size: x-large;
+        color: #194b6c;
+    }
+
+    .game-board {
+        display: grid;
+        grid-template-columns: repeat(4, 100px); /* Change for larger boards */
+        gap: 10px;
+        margin: 20px;
+        padding-top: 100px;
+    }
+
+    .card {
+        width: 100px;
+        height: 100px;
+        background-color: #3498db;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+        border-radius: 8px;
+    }
+
+    .card.flipped {
+        background-color: #fff;
+        color: #3498db;
+    }
+
+    .card.matched {
+        background-color: #2ecc71;
+        color: white;
+    }
+
+    /* Additional styling for game status (timer, moves, etc.) */
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" id="mainPageLink">Go Back</a>
+    </header>
+    <h1>Card Flip Game</h1>
+    <h2>- Test Your Memory -</h2>
+
+    <div class="game-board" id="gameBoard"></div>
+    
+    <script>// JavaScript to control the game logic
+    const cardValues = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];  // Game data: pairs of cards
+    const shuffledCards = [...cardValues, ...cardValues];  // Duplicate the card values to create pairs
+    shuffledCards.sort(() => Math.random() - 0.5);  // Shuffle the cards
+
+    let flippedCards = [];
+    let matchedCards = [];
+    let moves = 0;
+
+    const gameBoard = document.getElementById('gameBoard');
+
+    // Create the cards and append to the game board
+    shuffledCards.forEach((value, index) => {
+        const cardElement = document.createElement('div');
+        cardElement.classList.add('card');
+        cardElement.dataset.value = value;
+        cardElement.dataset.index = index;
+        cardElement.textContent = '';  // Initially empty
+        cardElement.addEventListener('click', () => flipCard(cardElement));
+        gameBoard.appendChild(cardElement);
+    });
+
+    function flipCard(card) {
+        if (flippedCards.length < 2 && !card.classList.contains('flipped') && !card.classList.contains('matched')) {
+            card.classList.add('flipped');
+            card.textContent = card.dataset.value;
+            flippedCards.push(card);
+            if (flippedCards.length === 2) {
+                checkForMatch();
+            }
+        }
+    }
+
+    function checkForMatch() {
+        moves++;
+
+        setTimeout(() => {
+            const [card1, card2] = flippedCards;
+            
+            if (card1.dataset.value === card2.dataset.value) {
+                card1.classList.add('matched');
+                card2.classList.add('matched');
+                matchedCards.push(card1, card2);
+            } else {
+                card1.classList.remove('flipped');
+                card2.classList.remove('flipped');
+                card1.textContent = '';
+                card2.textContent = '';
+            }
+            
+            flippedCards = [];
+            
+            if (matchedCards.length === shuffledCards.length) {
+                setTimeout(() => alert(`You won in ${moves} moves!`), 300);
+            }
+        }, 800);  // Delay to show both flipped cards
+        }
+    </script>
+</body>
+</html>

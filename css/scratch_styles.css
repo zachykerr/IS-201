@@ -1,0 +1,82 @@
+body {
+    font-family: Arial, sans-serif;
+    color: white;
+    background-color: #333; /* Dark background color */
+    background-image: url("../assets/img/chalkboard.jpg"); /* Custom background image */
+    background-size: cover; /* Stretch the image across the page */
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: rgba(0, 0, 0, 0.5); /* Slight dark overlay for readability */
+    padding: 20px;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2em;
+}
+
+h1, h2 {
+    font-family: 'Helvetica', sans-serif;
+    color: white;
+}
+
+/* Styling for sections */
+section {
+    margin: 20px;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+#game-list {
+    line-height: 1.8;
+}
+
+#game-image img {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    border-radius: 8px;
+}
+
+iframe {
+    border: none;
+    border-radius: 8px;
+}
+
+footer {
+    background-color: rgba(0, 0, 0, 0.5);
+    margin-top: 20px;
+    text-align: center;
+}
+
+.back-to-top {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2em;
+    padding-bottom: 20px;
+}
+
+/* Div positioning for layout */
+.intro, #game-list, #game-image, #game-video, #tableau-embed {
+    margin-bottom: 20px;
+}
+
+.tableau-embed {
+    text-align: center;
+}
